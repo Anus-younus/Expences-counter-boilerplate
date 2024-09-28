@@ -1,0 +1,34 @@
+/* Sidebar styles */
+.sidebar {
+  width: 240px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  background-color: #121212; /* Dark background */
+  color: #ffffff; /* White text */
+}
+
+.title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #bb86fc; /* Use the primary color */
+}
+
+.navList {
+  list-style: none;
+  padding: 0;
+}
+
+.navLink {
+  text-transform: none;
+  width: 100%;
+  justify-content: flex-start;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: #ffffff; /* White text */
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
