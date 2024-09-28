@@ -11,7 +11,7 @@
 .title {
   font-size: 1.5rem;
   margin-bottom: 1rem;
-  color: #bb86fc; /* Use the primary color */
+  color: #ffff; /* Use the primary color */
 }
 
 .navList {
@@ -31,4 +31,8 @@
 a {
   text-decoration: none;
   color: inherit;
+}
+
+.active {
+  color: #fff;
 }

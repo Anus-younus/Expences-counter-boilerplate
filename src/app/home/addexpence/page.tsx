@@ -47,7 +47,7 @@ export default function AddExpence() {
 
     return (
         <>
-            <Stack direction={'column'} spacing={4} sx={{ height: "100%", display: "flex", justifyContent: "center", alignItems: "center", padding: '20px' }}>
+            <Stack direction={'column'} spacing={4} sx={{ marginTop: "40px", height: "100%", display: "flex", justifyContent: "center", alignItems: "center", padding: '20px' }}>
                 <Stack direction={'column'} spacing={4} sx={{ width: "100%", maxWidth: "30rem" }}>
                     <TextField
                         value={title}

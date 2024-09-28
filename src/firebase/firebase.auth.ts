@@ -8,7 +8,6 @@ import {
 } from 'firebase/auth'
 import { app } from './firebase.config'
 import { addUserDB } from './firebase.firestore'
-const provider = new GoogleAuthProvider();
 
 
 export const auth = getAuth(app)
@@ -33,16 +32,13 @@ export async function loginExpencConverterUser(email: string, password: string) 
     }
 }
 
-export async function signOutExpencConverterUser() {
-    try {
-        await signOut(auth)
-        console.log("user logout succesful")
-    } catch (e) {
-        console.error("error", e)
-    }
-}
+export const signOutExpencConverterUser = async () => {
+    const auth = getAuth();
+    await signOut(auth);
+};
 
 export async function signInGoogle() {
+const provider = new GoogleAuthProvider();
     try {
         await signInWithPopup(auth, provider)
     } catch (e) {

@@ -59,7 +59,7 @@ export default function Expences() {
     <>
       {
         expences.length > 0 ? (
-          <TableContainer component={Paper} sx={{ width: '100%', overflowX: 'auto' }}>
+          <TableContainer component={Paper} sx={{ marginTop: "40px",width: '100%', overflowX: 'auto' }}>
             <Table sx={{ minWidth: 650, tableLayout: 'auto' }} aria-label="responsive table">
               <TableHead>
                 <TableRow>

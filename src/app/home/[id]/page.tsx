@@ -43,61 +43,72 @@ export default function Edit({ params: { id } }: ParamType) {
   };
 
   return (
-    <>
+    <Stack
+      direction="column"
+      spacing={4}
+      sx={{
+        height: "100vh", // Use full viewport height
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: { xs: 2, sm: 4 }, // Padding adjusts with screen size
+      }}
+    >
       <Stack
-        direction={"column"}
+        direction="column"
         spacing={4}
         sx={{
-          height: "40em",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          width: { xs: "90%", sm: "30rem" }, // Responsive width
+          maxWidth: "30rem", // Optional max width
+          padding: { xs: 1, sm: 0 }, // Padding for smaller screens
         }}
       >
-        <Stack direction={"column"} spacing={4} sx={{ width: "30rem" }}>
-          <TextField
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            color="warning"
-            label="Enter your expence title"
-          />
-          <TextField
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            color="warning"
-            label="Enter your expence price"
-            type="number"
-            InputProps={{
-              startAdornment: <InputAdornment position="start">$</InputAdornment>,
-            }}
-          />
-          <TextField
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            color="warning"
-            label="Select category"
-            select
-          >
-            <MenuItem value="Food">Food</MenuItem>
-            <MenuItem value="Transport">Transport</MenuItem>
-            <MenuItem value="Bills">Bills</MenuItem>
-            <MenuItem value="Education">Education</MenuItem>
-            <MenuItem value="Investments">Investments</MenuItem>
-            <MenuItem value="Luxuries">Luxuries</MenuItem>
-          </TextField>
-          <TextField
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
-            color="warning"
-            label="Enter a note"
-            multiline
-            rows={4}
-          />
-          <Button onClick={handleSubmit} color="warning" variant="contained">
-            Update Expense
-          </Button>
-        </Stack>
+        <TextField
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          color="warning"
+          label="Enter your expense title"
+          fullWidth // Makes the text field full width
+        />
+        <TextField
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+          color="warning"
+          label="Enter your expense price"
+          type="number"
+          InputProps={{
+            startAdornment: <InputAdornment position="start">$</InputAdornment>,
+          }}
+          fullWidth // Makes the text field full width
+        />
+        <TextField
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          color="warning"
+          label="Select category"
+          select
+          fullWidth // Makes the text field full width
+        >
+          <MenuItem value="Food">Food</MenuItem>
+          <MenuItem value="Transport">Transport</MenuItem>
+          <MenuItem value="Bills">Bills</MenuItem>
+          <MenuItem value="Education">Education</MenuItem>
+          <MenuItem value="Investments">Investments</MenuItem>
+          <MenuItem value="Luxuries">Luxuries</MenuItem>
+        </TextField>
+        <TextField
+          value={note}
+          onChange={(e) => setNote(e.target.value)}
+          color="warning"
+          label="Enter a note"
+          multiline
+          rows={4}
+          fullWidth // Makes the text field full width
+        />
+        <Button onClick={handleSubmit} color="warning" variant="contained" fullWidth>
+          Update Expense
+        </Button>
       </Stack>
-    </>
+    </Stack>
   );
 }
