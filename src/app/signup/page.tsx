@@ -27,6 +27,7 @@ export default function Signup() {
         } catch (error) {
             setErrorMessage("Failed to create account. Please try again.");
             setOpenSnackbar(true);
+            console.log(error)
         } finally {
             setLoading(false);
         }

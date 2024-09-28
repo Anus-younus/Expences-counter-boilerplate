@@ -27,6 +27,7 @@ export default function Login() {
         } catch (error) {
             setErrorMessage("Invalid email or password. Please try again.");
             setOpenSnackbar(true);
+            console.log(error);
         } finally {
             setLoading(false);
         }
@@ -40,6 +41,7 @@ export default function Login() {
         } catch (error) {
             setErrorMessage("Failed to sign in with Google. Please try again.");
             setOpenSnackbar(true);
+            console.log(error);
         } finally {
             setLoading(false);
         }
@@ -65,7 +67,7 @@ export default function Login() {
                         required 
                     />
                     <Typography>
-                        If you don't have an account <Link style={{color: "blue"}} href={'/signup'}>sign up</Link>
+                        If you don&apos;t have an account <Link style={{ color: "blue" }} href={'/signup'}>sign up</Link>
                     </Typography>
                     <Button 
                         onClick={handleLogin} 

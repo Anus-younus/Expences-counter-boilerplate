@@ -4,7 +4,7 @@ import { auth } from "@/firebase/firebase.auth";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { db, deleteExpenceDB } from "@/firebase/firebase.firestore";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, Unsubscribe } from "firebase/auth";
 import { collection, DocumentData, onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Box } from "@mui/material";
@@ -19,7 +19,7 @@ export default function Expences() {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // Detect mobile view
 
   useEffect(() => {
-    let unsubscribe: any;
+    let unsubscribe: Unsubscribe;
 
     const fetchExpences = () => {
       const collectionRef = collection(db, "expences");

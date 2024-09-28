@@ -1,10 +1,8 @@
 import {
     doc,
-    getDoc,
     addDoc,
     collection,
     Timestamp,
-    getDocs,
     setDoc,
     getFirestore,
     updateDoc,
@@ -13,6 +11,7 @@ import {
 
 import { app } from './firebase.config'
 import { auth } from './firebase.auth'
+import { ExpenceType, UpdatedExpenceType, UserType } from '@/types/firebasetypes'
 
 export const db = getFirestore(app)
 

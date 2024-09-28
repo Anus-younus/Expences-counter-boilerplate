@@ -39,6 +39,7 @@ export default function AddExpence() {
         } catch (error) {
             setErrorMessage("Error adding expense. Please try again.");
             setOpenSnackbar(true);
+            console.log(error)
         } finally {
             setLoading(false);
         }

@@ -17,7 +17,7 @@ export default function UserContextProvider({ children }: { children: React.Reac
                 router.push('/login')
             }
         })
-    }, [])
+    }, [router])
     return (
         <UserContext.Provider value={null}>
             {children}
