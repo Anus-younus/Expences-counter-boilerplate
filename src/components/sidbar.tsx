@@ -98,6 +98,15 @@ export default function Sidebar() {
                         <li>
                             <Button 
                                 component={Link} 
+                                href="/home/expencestrack"
+                                className={pathname === "/home/expencestrack" ? "active" : ""}
+                            >
+                                Expenses track
+                            </Button>
+                        </li>
+                        <li>
+                            <Button 
+                                component={Link} 
                                 href="/home/addexpence"
                                 className={pathname === "/home/addexpence" ? "active" : ""}
                             >
@@ -109,7 +118,7 @@ export default function Sidebar() {
                     <p className="no-data-message">You are logged out. Please log in!</p> // Message when user is not authenticated
                 )}
                 <li>
-                    <Button 
+                    <Button
                         onClick={handleLogout}
                         className={"navLink"}
                         disabled={!user} // Disable logout if user is not authenticated
