@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import LogoutIcon from '@mui/icons-material/Logout';
 import Link from 'next/link';
 import './style.css';
 import { Button, Drawer, IconButton, ThemeProvider, createTheme } from '@mui/material';
@@ -8,37 +9,34 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { auth, signOutExpencConverterUser } from '@/firebase/firebase.auth';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { useRouter, usePathname } from 'next/navigation'; // Import usePathname
+import { useRouter, usePathname } from 'next/navigation';
 import { onAuthStateChanged, User } from 'firebase/auth';
-// import { useAuth } from '@/firebase/firebase.auth'; // Assuming you have a hook for authentication
 
 export default function Sidebar() {
     const useAuth = () => {
         const [user, setUser] = useState<User | null>(null);
         const [loading, setLoading] = useState(true);
-    
+
         useEffect(() => {
             const unsubscribe = onAuthStateChanged(auth, (user) => {
-                setUser(user); // Set the user state to the authenticated user
-                setLoading(false); // Loading is done
+                setUser(user); 
+                setLoading(false); 
             });
-    
-            // Cleanup subscription on unmount
+
             return () => unsubscribe();
         }, []);
-    
+
         return { user, loading };
     };
+
     const [mobileOpen, setMobileOpen] = useState(false);
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const router = useRouter();
-    const pathname = usePathname(); // Get current pathname
+    const pathname = usePathname();
 
-    // Get user authentication state (assuming you have a custom hook)
-    const { user } = useAuth(); // Replace with your actual auth hook
+    const { user } = useAuth();
 
-    // Custom dark theme
     const darkTheme = createTheme({
         palette: {
             mode: 'dark',
@@ -64,64 +62,57 @@ export default function Sidebar() {
         },
     });
 
-    // Toggle drawer for mobile
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
 
-    // Handle Logout
     const handleLogout = async () => {
         try {
-            await signOutExpencConverterUser(); // Call the sign-out function
-            router.push('/login'); // Redirect to the login page after logout
+            await signOutExpencConverterUser();
+            router.push('/login');
         } catch (error) {
-            console.error("Logout error:", error); // Log any errors
+            console.error("Logout error:", error);
         }
     };
 
-    // Sidebar content
     const sidebarContent = (
         <nav className={"sidebar"}>
             <h2 className={"title"}>All Expenses</h2>
             <ul className={"navList"}>
-                {user ? ( // Only show links if user is authenticated
+                {user ? (
                     <>
                         <li>
-                            <Button 
-                                component={Link} 
-                                href="/home/expences"
-                                className={pathname === "/home/expences" ? "active" : ""}
-                            >
-                                Expenses
-                            </Button>
+                            <Link href="/home/expences" passHref>
+                                <Button className={pathname === "/home/expences" ? "active" : ""}>
+                                    Expenses
+                                </Button>
+                            </Link>
                         </li>
                         <li>
-                            <Button 
-                                component={Link} 
-                                href="/home/expencestrack"
-                                className={pathname === "/home/expencestrack" ? "active" : ""}
-                            >
-                                Expenses track
-                            </Button>
+                            <Link href="/home/expencestrack" passHref>
+                                <Button className={pathname === "/home/expencestrack" ? "active" : ""}>
+                                    Expenses track
+                                </Button>
+                            </Link>
                         </li>
                         <li>
-                            <Button 
-                                component={Link} 
-                                href="/home/addexpence"
-                                className={pathname === "/home/addexpence" ? "active" : ""}
-                            >
-                                Add New +
-                            </Button>
+                            <Link href="/home/addexpence" passHref>
+                                <Button className={pathname === "/home/addexpence" ? "active" : ""}>
+                                    Add New +
+                                </Button>
+                            </Link>
                         </li>
                     </>
                 ) : (
-                    <p className="no-data-message">You are logged out. Please log in!</p> // Message when user is not authenticated
+                    <p className="no-data-message">You are logged out. Please log in!</p>
                 )}
                 <li>
                     <Button
                         onClick={handleLogout}
-                        className={"navLink"}
-                        disabled={!user} // Disable logout if user is not authenticated
+                        startIcon={<LogoutIcon />}
+                        color='error'
+                        variant="contained"
+                        disabled={!user}
                     >
                         Logout
                     </Button>
@@ -140,7 +131,7 @@ export default function Sidebar() {
                         onClick={handleDrawerToggle}
                         sx={{ position: 'absolute', top: '1rem', left: '1rem', color: '#fff' }}
                     >
-                        <MenuIcon sx={{ color: "#000" }} />
+                        <MenuIcon sx={{ color: "#fff" }} />
                     </IconButton>
                     <Drawer
                         variant="temporary"

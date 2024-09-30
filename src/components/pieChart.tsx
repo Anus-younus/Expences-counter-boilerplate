@@ -1,4 +1,3 @@
-// PieChart.tsx
 "use client";
 import { Pie } from "react-chartjs-2";
 import {
@@ -8,6 +7,7 @@ import {
   Tooltip,
   Legend
 } from "chart.js";
+import { useEffect, useState } from "react";
 
 // Register the necessary components
 ChartJS.register(ArcElement, Title, Tooltip, Legend); 
@@ -32,9 +32,31 @@ interface PieChartProps {
 }
 
 export default function PieChart({ charData }: PieChartProps) {
-    return (
-        <>
-          <Pie data={charData} />
-        </>
-    );
+  const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
+
+  // Resize handler to adjust chart on window resize
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return (
+    <div style={{ maxWidth: windowWidth < 768 ? '100%' : '50%', margin: '0 auto' }}>
+      <Pie 
+        data={charData} 
+        options={{
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: true,
+              position: windowWidth < 768 ? 'bottom' : 'right',
+            },
+          },
+        }}
+        style={{ height: windowWidth < 768 ? '250px' : '400px' }}
+      />
+    </div>
+  );
 }
