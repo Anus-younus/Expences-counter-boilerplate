@@ -129,9 +129,9 @@ export default function Sidebar() {
                         color="inherit"
                         edge="start"
                         onClick={handleDrawerToggle}
-                        sx={{ position: 'absolute', top: '1rem', left: '1rem', color: '#fff' }}
+                        sx={{ position: 'absolute', top: '1rem', left: '1rem', color: '#000' }}
                     >
-                        <MenuIcon sx={{ color: "#fff" }} />
+                        <MenuIcon sx={{ color: "#000" }} />
                     </IconButton>
                     <Drawer
                         variant="temporary"

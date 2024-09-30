@@ -35,12 +35,12 @@ export default function ExpencesTrack() {
 
     useEffect(() => {
         console.log(expneces)
-            const unsubscribe = onAuthStateChanged(auth, (user) => {
-                if (user) {
-                    fetchExpences(); // Fetch expenses only if the user is authenticated
-                }
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                fetchExpences(); // Fetch expenses only if the user is authenticated
+            }
             return () => unsubscribe(); // Cleanup the listener on unmount
-        })
+        });
     }, []);
 
     const fetchExpences = () => {
@@ -72,9 +72,24 @@ export default function ExpencesTrack() {
     return (
         <>
             <div style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}></div>
-            <div style={{ width: "500px", marginLeft: "400px" }}>
+            <div
+                style={{
+                    width: "90%", // Use percentage width for responsiveness
+                    maxWidth: "500px", // Maximum width to limit large screens
+                    margin: "0 auto", // Center the chart
+                }}
+            >
                 <PieChart charData={userData} />
             </div>
+
+            <style jsx>{`
+                @media (max-width: 768px) {
+                    div {
+                        width: 100%; // Full width on smaller screens
+                        margin-left: 0; // Remove any margin that may cause issues on small screens
+                    }
+                }
+            `}</style>
         </>
     );
 }
