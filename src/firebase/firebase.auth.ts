@@ -20,7 +20,7 @@ export async function createExpencConverterUser(name: string, email: string, pas
         
         if (user) {
             const uid = user.uid; // Use the uid from the user object directly
-            await addUserDB({ name, email, uid }); // Assuming addUserDB is an async function
+            await addUserDB({ name, email, uid, isEmailVerify: false }); // Assuming addUserDB is an async function
             console.log("User created successfully", user);
             return user; // Optionally return the user object
         }
@@ -85,18 +85,33 @@ export const sendVerificationEmail = async (): Promise<void> => {
 };
 
 export const checkEmailVerification = async (): Promise<boolean> => {
-    const user = auth.currentUser; // Get the currently authenticated user
+    const user = auth.currentUser;
 
     if (user) {
-        await user.reload(); // Reload the user to get updated information
+        await user.reload(); // Refresh the user data
+
         if (user.emailVerified) {
-            await updateUserDB(user.uid, { isEmailVerify: true }); // Update the verification status in your database
-            console.log("Email is verified.");
-            return true; // Return true if the email is verified
+            try {
+                await updateUserDB(user.uid, { isEmailVerify: true });
+                console.log("Email is verified and document updated.");
+            } catch (error) {
+                const typedError = error as { code: string };
+                if (typedError.code === 'not-found') {
+                    // Create the document if it doesn't exist
+                    await addUserDB({name: "", email: user.email, uid: user.uid, isEmailVerify: true});
+                    console.log("User document created and email verification status updated.");
+                } else {
+                    console.error("Error updating user document:", error);
+                    throw error;
+                }
+            }
+            return true;
         } else {
             console.log("Email is not verified yet.");
-            return false; // Return false if the email is not verified
+            return false;
         }
     }
-    return false; // Return false if no user is found
-}
+
+    console.log("No user is currently logged in.");
+    return false;
+};

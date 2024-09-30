@@ -1,7 +1,8 @@
 export type UserType = {
     name: string,
-    email: string,
-    uid: string | undefined
+    email: string | null,
+    uid: string | undefined,
+    isEmailVerify: boolean
 }
 
 export type ExpenceType = {

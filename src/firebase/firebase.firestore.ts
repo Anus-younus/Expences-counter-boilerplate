@@ -15,11 +15,11 @@ import { ExpenceType, UpdatedExpenceType, UserType } from '@/types/firebasetypes
 
 export const db = getFirestore(app)
 
-export async function addUserDB({ name, email, uid }: UserType) {
+export async function addUserDB({ name, email, uid, isEmailVerify }: UserType) {
     try {
         if (uid) {
             const docRef = doc(db, "users", uid)
-            const res = await setDoc(docRef, { name, email, isEmailVerify: false })
+            const res = await setDoc(docRef, { name, email, isEmailVerify })
             console.log("user add in db", res)
         }
     } catch (e) {
