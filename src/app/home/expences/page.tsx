@@ -7,7 +7,7 @@ import { db, deleteExpenceDB } from "@/firebase/firebase.firestore";
 import { onAuthStateChanged, Unsubscribe } from "firebase/auth";
 import { collection, DocumentData, onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Box } from "@mui/material";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Box, Stack } from "@mui/material";
 import { useRouter } from "next/navigation";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
@@ -104,7 +104,9 @@ export default function Expences() {
             </Table>
           </TableContainer>
         ) : (
-          <h1>No expenses available</h1>
+          <Stack style={{width: "100%", textAlign: "center"}}>
+            <Button variant="text">No expenses available</Button>
+          </Stack>
         )
       }
     </>

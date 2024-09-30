@@ -3,6 +3,7 @@
 import PieChart from "@/components/pieChart";
 import { auth } from "@/firebase/firebase.auth";
 import { db } from "@/firebase/firebase.firestore";
+import { Stack, Button } from "@mui/material";
 import { onAuthStateChanged } from "firebase/auth";
 import { collection, DocumentData, onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
@@ -72,15 +73,21 @@ export default function ExpencesTrack() {
     return (
         <>
             <div style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}></div>
-            <div
-                style={{
-                    width: "90%", // Use percentage width for responsiveness
-                    maxWidth: "500px", // Maximum width to limit large screens
-                    margin: "0 auto", // Center the chart
-                }}
-            >
-                <PieChart charData={userData} />
-            </div>
+            {
+                expneces.length > 0 ? (<div
+                    style={{
+                        width: "90%", // Use percentage width for responsiveness
+                        maxWidth: "500px", // Maximum width to limit large screens
+                        margin: "0 auto", // Center the chart
+                    }}
+                >
+                    <PieChart charData={userData} />
+                </div>) :
+                    (<Stack style={{ width: "100%", textAlign: "center" }}>
+                        <Button variant="text">No expenses available</Button>
+                    </Stack>
+                    )
+            }
 
             <style jsx>{`
                 @media (max-width: 768px) {

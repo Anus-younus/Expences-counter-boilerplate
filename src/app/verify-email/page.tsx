@@ -5,9 +5,7 @@ import { Button, Stack, Typography, Snackbar, Alert } from "@mui/material";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { auth } from "@/firebase/firebase.auth"; // Adjust the import path to your Firebase config
-import { doc, onSnapshot } from "firebase/firestore";
 import { useRouter } from "next/navigation"; // Import useRouter for redirection
-import { db } from "@/firebase/firebase.firestore";
 
 export default function VerifyEmail() {
     const [loading, setLoading] = useState<boolean>(false);
@@ -17,22 +15,25 @@ export default function VerifyEmail() {
     const [isEmailVerified, setIsEmailVerified] = useState<boolean>(false);
     const router = useRouter(); // Initialize useRouter
 
+    // Function to reload user and check verification status
+    const checkEmailVerification = async () => {
+        const user = auth.currentUser;
+        if (user) {
+            await user.reload(); // Reload user info to get updated email verification status
+            if (user.emailVerified) {
+                setIsEmailVerified(true); // Set state if email is verified
+                setSuccessMessage("Your email has been verified!");
+                setOpenSnackbar(true);
+            }
+        }
+    };
+
     // Listen for email verification status
     useEffect(() => {
-        const user = auth.currentUser; // Get the currently authenticated user
-        if (user) {
-            const unsubscribe = onSnapshot(doc(db, "users", user.uid), (doc) => {
-                const data = doc.data();
-                if (data && data.isEmailVerify) {
-                    setIsEmailVerified(true); // Set verification status
-                    setSuccessMessage("Your email has been verified!");
-                    setOpenSnackbar(true);
-                }
-            });
+        checkEmailVerification();
+        const interval = setInterval(checkEmailVerification, 3000); // Check every 3 seconds
 
-            // Cleanup on unmount
-            return () => unsubscribe();
-        }
+        return () => clearInterval(interval); // Cleanup the interval on unmount
     }, []);
 
     // Redirect to home if the email is verified
@@ -41,7 +42,6 @@ export default function VerifyEmail() {
             router.push("/home/expenses"); // Redirect to the home page without reload
         }
     }, [isEmailVerified, router]);
-    
 
     const handleSendVerificationEmail = async (): Promise<void> => {
         setLoading(true);
@@ -93,4 +93,4 @@ export default function VerifyEmail() {
             </Snackbar>
         </>
     );
-};
+}
