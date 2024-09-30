@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import PieChart from "@/components/pieChart"
-import { auth } from "@/firebase/firebase.auth"
-import { db } from "@/firebase/firebase.firestore"
-import { onAuthStateChanged } from "firebase/auth"
-import { collection, DocumentData, onSnapshot, query, where } from "firebase/firestore"
-import { useEffect, useState } from "react"
+import PieChart from "@/components/pieChart";
+import { auth } from "@/firebase/firebase.auth";
+import { db } from "@/firebase/firebase.firestore";
+import { onAuthStateChanged } from "firebase/auth";
+import { collection, DocumentData, onSnapshot, query, where } from "firebase/firestore";
+import { useEffect, useState } from "react";
 
 // Define an interface for the dataset
 interface Dataset {
@@ -34,14 +34,13 @@ export default function ExpencesTrack() {
     });
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                fetchExpences();
-            }
-            console.log(expneces)
-        });
-
-        return () => unsubscribe();
+        console.log(expneces)
+            const unsubscribe = onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    fetchExpences(); // Fetch expenses only if the user is authenticated
+                }
+            return () => unsubscribe(); // Cleanup the listener on unmount
+        })
     }, []);
 
     const fetchExpences = () => {
@@ -56,6 +55,7 @@ export default function ExpencesTrack() {
                 updateExpence.push(exp);
             });
             setExpences(updateExpence);
+
             // Update userData after setting expences
             setUserData({
                 labels: updateExpence.map((data) => data.category || "Unknown"), // Use fallback for category
@@ -67,7 +67,7 @@ export default function ExpencesTrack() {
                 }]
             });
         });
-    }
+    };
 
     return (
         <>
