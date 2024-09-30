@@ -32,14 +32,25 @@ interface PieChartProps {
 }
 
 export default function PieChart({ charData }: PieChartProps) {
-  const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
+  const [windowWidth, setWindowWidth] = useState<number | null>(null);
 
   // Resize handler to adjust chart on window resize
   useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    // Ensure this code runs only on the client-side
+    if (typeof window !== "undefined") {
+      setWindowWidth(window.innerWidth); // Set initial width
+
+      const handleResize = () => setWindowWidth(window.innerWidth);
+      window.addEventListener('resize', handleResize);
+
+      return () => window.removeEventListener('resize', handleResize);
+    }
   }, []);
+
+  // If windowWidth is null, we are still on the server-side
+  if (windowWidth === null) {
+    return null; // or a loading spinner
+  }
 
   return (
     <div style={{ maxWidth: windowWidth < 768 ? '100%' : '50%', margin: '0 auto' }}>
