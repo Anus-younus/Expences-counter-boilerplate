@@ -1,6 +1,6 @@
 "use client";
 
-import { createExpencConverterUser, sendVerificationEmail } from "@/firebase/firebase.auth";
+import { createExpencConverterUser } from "@/firebase/firebase.auth";
 import { Button, Stack, TextField, Typography, Snackbar, Alert } from "@mui/material";
 import Link from "next/link";
 import { useState, ChangeEvent } from "react";
@@ -54,7 +54,7 @@ export default function Signup() {
             await createExpencConverterUser(name, email, password);
             // Handle successful signup (e.g., redirect to another page)
             // Example: Router.push('/welcome');
-        } catch (error: any) {
+        } catch (error) {
             const firebaseError = error as FirebaseAuthError;
             console.error("Signup error:", error);
 

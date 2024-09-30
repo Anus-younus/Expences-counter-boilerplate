@@ -67,7 +67,7 @@ export default function VerifyEmail() {
                 <Stack direction={"column"} spacing={4} sx={{ width: "100%", maxWidth: "30em" }}>
                     <Typography variant="h5">Verify Your Email</Typography>
                     <Typography>
-                        Please verify your email address to continue. If you haven't received an email, click the button below to resend the verification email.
+                        Please verify your email address to continue. If you haven&apos;t received an email, click the button below to resend the verification email.
                     </Typography>
                     <Button
                         onClick={handleSendVerificationEmail}

@@ -55,7 +55,7 @@ const Login = () => {
     try {
       await loginExpencConverterUser(email, password);
       // Handle successful login (e.g., redirect to another page)
-    } catch (error: any) {
+    } catch (error) {
       const firebaseError = error as FirebaseAuthError;
       console.error("Error details:", firebaseError); // Log the error details for debugging
       switch (firebaseError.code) {
@@ -92,7 +92,7 @@ const Login = () => {
     try {
       await signInGoogle();
       // Handle successful login (e.g., redirect to another page)
-    } catch (error: any) {
+    } catch (error) {
       const firebaseError = error as FirebaseAuthError;
       console.error("Error details:", firebaseError); // Log the error details for debugging
       switch (firebaseError.code) {
