@@ -19,7 +19,7 @@ export async function addUserDB({ name, email, uid }: UserType) {
     try {
         if (uid) {
             const docRef = doc(db, "users", uid)
-            const res = await setDoc(docRef, { name, email })
+            const res = await setDoc(docRef, { name, email, isEmailVerify: false })
             console.log("user add in db", res)
         }
     } catch (e) {
@@ -64,3 +64,13 @@ export async function deleteExpenceDB(id: string) {
     }
 }
 
+export const updateUserDB = async (uid: string, data: { isEmailVerify: boolean }) => {
+    try {
+        const userDocRef = doc(db, "users", uid); // Assuming "users" is your collection name
+        await updateDoc(userDocRef, data);
+        console.log("User updated successfully:", uid);
+    } catch (error) {
+        console.error("Error updating user:", error);
+        throw error; // Re-throw the error if needed
+    }
+};
