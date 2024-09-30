@@ -77,7 +77,7 @@ export default function ExpencesTrack() {
                 expneces.length > 0 ? (<div
                     style={{
                         width: "90%", // Use percentage width for responsiveness
-                        maxWidth: "500px", // Maximum width to limit large screens
+                        maxWidth: "90%", // Maximum width to limit large screens
                         margin: "0 auto", // Center the chart
                     }}
                 >
