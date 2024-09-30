@@ -7,9 +7,23 @@ import { onAuthStateChanged } from "firebase/auth"
 import { collection, DocumentData, onSnapshot, query, where } from "firebase/firestore"
 import { useEffect, useState } from "react"
 
+// Define an interface for the dataset
+interface Dataset {
+    label: string;
+    data: number[];
+    backgroundColor: string[];
+    borderWidth: number;
+}
+
+// Define an interface for userData
+interface UserData {
+    labels: string[];
+    datasets: Dataset[];
+}
+
 export default function ExpencesTrack() {
-    const [expneces, setExpences] = useState<DocumentData[]>([])
-    const [userData, setUserData] = useState<any>({
+    const [expneces, setExpences] = useState<DocumentData[]>([]);
+    const [userData, setUserData] = useState<UserData>({
         labels: [],
         datasets: [{
             label: "Categories expense per month",
@@ -24,6 +38,7 @@ export default function ExpencesTrack() {
             if (user) {
                 fetchExpences();
             }
+            console.log(expneces)
         });
 
         return () => unsubscribe();
@@ -47,7 +62,7 @@ export default function ExpencesTrack() {
                 datasets: [{
                     label: "Categories expense per month",
                     data: updateExpence.map((data) => data.amount || 0), // Use fallback for amount
-                    backgroundColor: ["yellow", "orange", "blue", "green"],
+                    backgroundColor: ["yellow", "orange", "blue", "green", "purple", "pink"], // Adjusted for more categories
                     borderWidth: 2,
                 }]
             });

@@ -3,18 +3,35 @@
 import { Pie } from "react-chartjs-2";
 import {
   Chart as ChartJS,
-  CategoryScale,
-  LinearScale, // You don't actually need this for a pie chart
-  ArcElement,  // Import ArcElement for pie charts
+  ArcElement,
   Title,
   Tooltip,
   Legend
 } from "chart.js";
 
 // Register the necessary components
-ChartJS.register(CategoryScale, ArcElement, Title, Tooltip, Legend); // Remove PointElement and PiearScale
+ChartJS.register(ArcElement, Title, Tooltip, Legend); 
 
-export default function PieChart({ charData }: any) {
+// Define an interface for the dataset
+interface Dataset {
+  label: string;
+  data: number[];
+  backgroundColor: string[];
+  borderWidth: number;
+}
+
+// Define an interface for userData
+interface UserData {
+  labels: string[];
+  datasets: Dataset[];
+}
+
+// Define the props interface for the PieChart component
+interface PieChartProps {
+  charData: UserData;
+}
+
+export default function PieChart({ charData }: PieChartProps) {
     return (
         <>
           <Pie data={charData} />
